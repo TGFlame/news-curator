@@ -1,0 +1,55 @@
+{
+  "crawlConfig": {
+    "userAgent": "news-curator/1.0 (+https://yourdomain.example)",
+    "obeyRobotsTxt": true,
+    "sameDomainOnly": true,
+    "maxDepth": 2,
+    "concurrentRequestsPerDomain": 2,
+    "requestDelayMs": 2000,
+    "retryCount": 3,
+    "retryBackoffMs": 2000,
+    "categorySeedRefreshMinutes": 15,
+    "articleRefreshHours": 3,
+    "staleArticleDays": 14,
+    "maxRequestsPerMinutePerDomain": 20,
+    "urlNormalization": true,
+    "deduplicateByCanonicalUrl": true
+  },
+  "categories": {
+    "world": [
+      "https://www.bbc.com/news/world",
+      "https://www.reuters.com/world/",
+      "https://www.theguardian.com/world"
+    ],
+    "business": [
+      "https://www.bbc.com/news/business",
+      "https://www.reuters.com/business/",
+      "https://www.theguardian.com/business"
+    ],
+    "technology": [
+      "https://www.bbc.com/news/technology",
+      "https://www.theverge.com/tech",
+      "https://www.theguardian.com/technology"
+    ],
+    "sports": [
+      "https://www.bbc.com/sport",
+      "https://www.reuters.com/lifestyle/sports/",
+      "https://www.theguardian.com/uk/sport"
+    ],
+    "entertainment": [
+      "https://www.bbc.com/news/entertainment_and_arts",
+      "https://www.theguardian.com/culture",
+      "https://www.hollywoodreporter.com/"
+    ],
+    "health": [
+      "https://www.bbc.com/news/health",
+      "https://www.reuters.com/lifestyle/health/",
+      "https://www.theguardian.com/society/health"
+    ],
+    "science": [
+      "https://www.bbc.com/news/science_and_environment",
+      "https://www.theguardian.com/science",
+      "https://www.nationalgeographic.com/science"
+    ]
+  }
+}
