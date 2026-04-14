@@ -1,3 +1,15 @@
 ./node_modules
 .end
 node_modules
+.vite/
+dist/
+crawler-results.json
+package-lock.json
+.env
+.env.local
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

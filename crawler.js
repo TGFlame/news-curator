@@ -173,7 +173,7 @@ async function crawlArticle(url, category, config) {
   return extractArticleMetadata(html, url);
 }
 
-async function main() {
+async function crawlHandler() {
   const seedConfig = await loadSeedConfig();
   const config = seedConfig.crawlConfig;
   const categories = seedConfig.categories;
@@ -200,9 +200,17 @@ async function main() {
   await fs.writeFile(path.join(__dirname, 'crawler-results.json'), JSON.stringify(results, null, 2), 'utf-8');
 }
 
+// Execute if run directly
 if (require.main === module) {
-  main().catch(error => {
+  crawlHandler().catch(error => {
     console.error('Crawler failed:', error);
     process.exit(1);
   });
 }
+
+module.exports = {
+  crawlHandler,
+  loadSeedConfig,
+  crawlSeedPage,
+  crawlArticle
+};

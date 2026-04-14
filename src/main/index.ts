@@ -1,6 +1,18 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron'
 import path from 'path'
 import isDev from 'electron-is-dev'
+import { spawn } from 'child_process'
+import { promises as fs } from 'fs'
+
+interface Article {
+  category: string
+  url: string
+  title: string
+  description: string
+  author: string
+  publishDate: string
+  body: string
+}
 
 let mainWindow: BrowserWindow | null = null
 
@@ -46,21 +58,39 @@ app.on('activate', () => {
 
 // IPC handlers for crawler communication
 ipcMain.handle('start-crawl', async (event, config) => {
-  try {
-    // Call your crawler.js logic here
-    console.log('Starting crawl with config:', config)
-    return { success: true, message: 'Crawl started' }
-  } catch (error) {
-    return { success: false, error: String(error) }
-  }
+  return new Promise((resolve, reject) => {
+    const crawlerProcess = spawn('node', ['crawler.js'], {
+      cwd: __dirname,
+      stdio: 'inherit'
+    })
+    
+    crawlerProcess.on('close', (code) => {
+      if (code === 0) {
+        resolve({ success: true, message: 'Crawl completed' })
+      } else {
+        reject(new Error(`Crawler exited with code ${code}`))
+      }
+    })
+  }).catch(error => ({
+    success: false,
+    error: String(error)
+  }))
 })
 
 ipcMain.handle('get-articles', async (event, category) => {
   try {
-    // Fetch articles from your backend/cache
-    console.log('Fetching articles for category:', category)
-    return []
+    // Fetch articles from crawler results
+    const resultsPath = path.join(__dirname, '../../crawler-results.json')
+    const data = await fs.readFile(resultsPath, 'utf-8')
+    const articles: Article[] = JSON.parse(data)
+    
+    if (!category || category === 'all') {
+      return articles
+    }
+    
+    return articles.filter((article: Article) => article.category === category)
   } catch (error) {
-    return { error: String(error) }
+    console.error('Error fetching articles:', error)
+    return []
   }
 })

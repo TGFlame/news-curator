@@ -24,7 +24,8 @@
     "business": [
       "https://www.bbc.com/news/business",
       "https://www.reuters.com/business/",
-      "https://www.theguardian.com/business"
+      "https://www.theguardian.com/business",
+      "https://finance.yahoo.com/news"
     ],
     "technology": [
       "https://www.bbc.com/news/technology",

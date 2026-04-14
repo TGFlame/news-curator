@@ -6,7 +6,7 @@
         <li 
           v-for="category in categories" 
           :key="category"
-          :class="{ active: activeCategory === category }"
+          :class="{ active: selectedCategory === category }"
           @click="selectCategory(category)"
           class="category-item"
         >
@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject, Ref } from 'vue'
 
 const categories = ref([
   'world',
@@ -30,10 +30,10 @@ const categories = ref([
   'science',
 ])
 
-const activeCategory = ref('world')
+const selectedCategory = inject<Ref<string>>('selectedCategory')!
 
 const selectCategory = (category: string) => {
-  activeCategory.value = category
+  selectedCategory.value = category
 }
 
 const formatCategory = (cat: string) => {

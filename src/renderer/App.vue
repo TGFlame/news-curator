@@ -9,8 +9,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref, provide } from 'vue'
 import Header from './components/Header.vue'
 import Sidebar from './components/Sidebar.vue'
+
+const selectedCategory = ref('world')
+provide('selectedCategory', selectedCategory)
 </script>
 
 <style scoped>
